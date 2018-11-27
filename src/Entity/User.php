@@ -27,7 +27,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="user.lastname.not_blank")
+     *
      */
     private $nom;
 
@@ -35,7 +35,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="prenom", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="user.firstname.not_blank")
+     *
      */
     private $prenom;
 
@@ -51,7 +51,7 @@ class User implements UserInterface
      * @var string
      *
      * @ORM\Column(name="telephone", type="string", length=255, nullable=false)
-     * @Assert\NotBlank(message="user.phone.not_blank")
+     *
      */
     private $telephone;
 
@@ -69,6 +69,12 @@ class User implements UserInterface
      * @ORM\Column(name="isAdmin", type="boolean", nullable=false)
      */
     private $isadmin = '0';
+
+    public function __construct($username)
+    {
+        $this->isadmin = false;
+        $this->username = $username;
+    }
 
     /**
      * @return int
@@ -199,8 +205,10 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        return array('ROLE_USER');
     }
+
+
 
     /**
      * Returns the salt that was originally used to encode the password.
@@ -221,7 +229,7 @@ class User implements UserInterface
      */
     public function getUsername()
     {
-        // TODO: Implement getUsername() method.
+        return $this->username;
     }
 
     /**
