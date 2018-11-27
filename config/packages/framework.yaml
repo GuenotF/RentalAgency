@@ -1,6 +1,9 @@
 framework:
     secret: '%env(APP_SECRET)%'
-    #default_locale: en
+    default_locale: fr
+    validation: { enable_annotations: true }
+    serializer:
+        enabled: true
     #csrf_protection: true
     #http_method_override: true
 

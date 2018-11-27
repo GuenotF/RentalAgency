@@ -1,0 +1,10 @@
+user:
+  lastname:
+    not_blank: "Veuillez ajouter un prénom"
+  firstname:
+    not_blank: "Veuillez ajouter un prénom"
+  email:
+    not_blank: "Veuillez ajouter un email"
+  phone:
+    not_blank: "Veuillez ajouter un téléphone"
+
