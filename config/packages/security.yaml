@@ -13,21 +13,23 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         login:
-            pattern:  ^/login
+            pattern:  ^/v1/auth/connexion
             stateless: true
             anonymous: true
             json_login:
-                check_path: /login_check
+                check_path: /v1/auth/connexion_verification
+                username_path: mail
+                password_path: password
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
         register:
-            pattern:  ^/register
+            pattern:  ^/v1/auth/inscription
             stateless: true
             anonymous: true
 
         api:
-            pattern:  ^/api
+            pattern:  ^/v1
             stateless: true
             anonymous: false
             provider: entity_provider
@@ -48,8 +50,8 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/v1/auth/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/v1/auth/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/v1/, roles: IS_AUTHENTICATED_FULLY }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }

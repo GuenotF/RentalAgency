@@ -16,11 +16,17 @@ class AuthController extends AbstractController
 {
     /**
      * @Route("/inscription", name="auth_register", methods="POST")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $encoder
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function register (Request $request, UserPasswordEncoderInterface $encoder) {
         $em = $this->getDoctrine()->getManager();
         $user = new User();
-        $username = $request->request->get('username');
+        $user->setNom('hello');
+        $user->setPrenom('hello');
+        $user->setTelephone('hello');
+        $user->setMail($request->request->get('mail'));
         $password = $request->request->get('password');
         $password_confirmation = $request->request->get('password_confirmation');
         if ($password == $password_confirmation) {
@@ -41,5 +47,12 @@ class AuthController extends AbstractController
         $password = $request->request->get('password');
 
         return $this->json($username);
+    }
+
+    /**
+     * @Route("/connexion_verification", name="auth_login_check", methods="POST")
+     */
+    public function login_check () {
+
     }
 }
