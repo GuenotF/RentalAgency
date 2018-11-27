@@ -24,14 +24,16 @@ class Location
     /**
      * @var int
      *
-     * @ORM\Column(name="fk_idUser", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="User", referencedColumnName="idUser")
      */
     private $fkIduser;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="fk_idVehicule", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Vehicule")
+     * @ORM\JoinColumn(name="Vehicule", referencedColumnName="idVehicule")
      */
     private $fkIdvehicule;
 
@@ -62,6 +64,118 @@ class Location
      * @ORM\Column(name="typePaiement", type="text", length=65535, nullable=false)
      */
     private $typepaiement;
+
+    /**
+     * @return int
+     */
+    public function getIdlocation(): int
+    {
+        return $this->idlocation;
+    }
+
+    /**
+     * @param int $idlocation
+     */
+    public function setIdlocation(int $idlocation): void
+    {
+        $this->idlocation = $idlocation;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFkIduser(): int
+    {
+        return $this->fkIduser;
+    }
+
+    /**
+     * @param int $fkIduser
+     */
+    public function setFkIduser(int $fkIduser): void
+    {
+        $this->fkIduser = $fkIduser;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFkIdvehicule(): int
+    {
+        return $this->fkIdvehicule;
+    }
+
+    /**
+     * @param int $fkIdvehicule
+     */
+    public function setFkIdvehicule(int $fkIdvehicule): void
+    {
+        $this->fkIdvehicule = $fkIdvehicule;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDatedeb(): \DateTime
+    {
+        return $this->datedeb;
+    }
+
+    /**
+     * @param \DateTime $datedeb
+     */
+    public function setDatedeb(\DateTime $datedeb): void
+    {
+        $this->datedeb = $datedeb;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDatefin(): \DateTime
+    {
+        return $this->datefin;
+    }
+
+    /**
+     * @param \DateTime $datefin
+     */
+    public function setDatefin(\DateTime $datefin): void
+    {
+        $this->datefin = $datefin;
+    }
+
+    /**
+     * @return float
+     */
+    public function getMontant(): float
+    {
+        return $this->montant;
+    }
+
+    /**
+     * @param float $montant
+     */
+    public function setMontant(float $montant): void
+    {
+        $this->montant = $montant;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypepaiement(): string
+    {
+        return $this->typepaiement;
+    }
+
+    /**
+     * @param string $typepaiement
+     */
+    public function setTypepaiement(string $typepaiement): void
+    {
+        $this->typepaiement = $typepaiement;
+    }
 
 
 }

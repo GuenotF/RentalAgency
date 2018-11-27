@@ -42,5 +42,69 @@ class Typevehicule
      */
     private $prixheure;
 
+    /**
+     * @return int
+     */
+    public function getIdtypevehi(): int
+    {
+        return $this->idtypevehi;
+    }
+
+    /**
+     * @param int $idtypevehi
+     */
+    public function setIdtypevehi(int $idtypevehi): void
+    {
+        $this->idtypevehi = $idtypevehi;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNom(): string
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param string $nom
+     */
+    public function setNom(string $nom): void
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClassification(): string
+    {
+        return $this->classification;
+    }
+
+    /**
+     * @param string $classification
+     */
+    public function setClassification(string $classification): void
+    {
+        $this->classification = $classification;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrixheure(): float
+    {
+        return $this->prixheure;
+    }
+
+    /**
+     * @param float $prixheure
+     */
+    public function setPrixheure(float $prixheure): void
+    {
+        $this->prixheure = $prixheure;
+    }
+
 
 }

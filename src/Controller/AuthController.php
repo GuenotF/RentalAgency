@@ -9,44 +9,37 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
+/**
+ * @Route("/v1/auth")
+ */
 class AuthController extends AbstractController
 {
     /**
-     * @Route("/register", name="user_register", methods="POST")
+     * @Route("/inscription", name="auth_register", methods="POST")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $encoder)
-    {
+    public function register (Request $request, UserPasswordEncoderInterface $encoder) {
         $em = $this->getDoctrine()->getManager();
+        $user = new User();
+        $username = $request->request->get('username');
+        $password = $request->request->get('password');
+        $password_confirmation = $request->request->get('password_confirmation');
+        if ($password == $password_confirmation) {
+            $user->setPassword($encoder->encodePassword($user, $password));
+        }
+        $em->persist($user);
+        $em->flush();
+
+        return $this->json('ok');
+    }
+
+    /**
+     * @Route("/connexion", name="auth_login", methods="POST")
+     */
+    public function login (Request $request) {
 
         $username = $request->request->get('username');
         $password = $request->request->get('password');
-        $password_confirm = $request->request->get('password_confirmation');
-        if ($password == $password_confirm) {
-            var_dump($password_confirm);
-            $user = new User($username);
-            $user->setNom("t");
-            $user->setPrenom("t");
-            $user->setMail("hello@hello.fr");
-            $user->setPassword($encoder->encodePassword($user, $password));
-            $em->persist($user);
-            $em->flush();
-        }
 
-        return new Response(sprintf('User %s successfully created', $user->getUsername()));
-    }
-    /**
-     * @Route("/api", name="api", methods="GET")
-     */
-    public function api()
-    {
-        return new Response(sprintf('Logged in as %s', $this->getUser()->getUsername()));
-    }
-
-    /**
-     * @Route("/login_check", name="login_check", methods="POST")
-     */
-    public function login_check()
-    {
-
+        return $this->json($username);
     }
 }

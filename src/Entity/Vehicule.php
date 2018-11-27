@@ -36,18 +36,96 @@ class Vehicule
     private $statut = '1';
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="fk_idTypeVehi", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Typevehicule")
+     * @ORM\JoinColumn(name="Typevehicule", referencedColumnName="idTypeVehi")
      */
     private $fkIdtypevehi;
 
     /**
-     * @var int
      *
-     * @ORM\Column(name="fk_idAgence", type="integer", nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Agence")
+     * @ORM\JoinColumn(name="Agence", referencedColumnName="idAgence")
      */
     private $fkIdagence;
 
+    /**
+     * @return int
+     */
+    public function getIdvehicule(): int
+    {
+        return $this->idvehicule;
+    }
+
+    /**
+     * @param int $idvehicule
+     */
+    public function setIdvehicule(int $idvehicule): void
+    {
+        $this->idvehicule = $idvehicule;
+    }
+
+    /**
+     * @return string
+     */
+    public function getNom(): string
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @param string $nom
+     */
+    public function setNom(string $nom): void
+    {
+        $this->nom = $nom;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isStatut(): bool
+    {
+        return $this->statut;
+    }
+
+    /**
+     * @param bool $statut
+     */
+    public function setStatut(bool $statut): void
+    {
+        $this->statut = $statut;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFkIdtypevehi()
+    {
+        return $this->fkIdtypevehi;
+    }
+
+    /**
+     * @param mixed $fkIdtypevehi
+     */
+    public function setFkIdtypevehi($fkIdtypevehi): void
+    {
+        $this->fkIdtypevehi = $fkIdtypevehi;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFkIdagence()
+    {
+        return $this->fkIdagence;
+    }
+
+    /**
+     * @param mixed $fkIdagence
+     */
+    public function setFkIdagence($fkIdagence): void
+    {
+        $this->fkIdagence = $fkIdagence;
+    }
 
 }

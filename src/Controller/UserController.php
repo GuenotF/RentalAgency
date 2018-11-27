@@ -3,8 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
-use App\Form\User2Type;
-use App\Form\UserType;
+use App\Form\User3Type;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +27,30 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods="GET")
+     * @Route("/new", name="user_new", methods="GET|POST")
+     */
+    public function new(Request $request): Response
+    {
+        $user = new User();
+        $form = $this->createForm(User3Type::class, $user);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirectToRoute('user_index');
+        }
+
+        return $this->render('user/new.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{iduser}", name="user_show", methods="GET")
      */
     public function show(User $user): Response
     {
@@ -36,25 +58,36 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/editer/{id}", name="user_edit", methods="PATCH")
+     * @Route("/{iduser}/edit", name="user_edit", methods="GET|POST")
      */
     public function edit(Request $request, User $user): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(User3Type::class, $user);
         $form->handleRequest($request);
-        $form->submit($request->request->all());
-        $this->getDoctrine()->getManager()->flush();
 
-        return $this->json($user);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('user_index', ['iduser' => $user->getIduser()]);
+        }
+
+        return $this->render('user/edit.html.twig', [
+            'user' => $user,
+            'form' => $form->createView(),
+        ]);
     }
 
     /**
-     * @Route("/supprimer/{id}", name="user_delete", methods="DELETE")
+     * @Route("/{iduser}", name="user_delete", methods="DELETE")
      */
     public function delete(Request $request, User $user): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $em->remove($user);
-        $em->flush();
+        if ($this->isCsrfTokenValid('delete'.$user->getIduser(), $request->request->get('_token'))) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($user);
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('user_index');
     }
 }

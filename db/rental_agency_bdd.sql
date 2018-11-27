@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 26 Novembre 2018 à 16:07
+-- Généré le :  Mar 27 Novembre 2018 à 13:19
 -- Version du serveur :  5.7.14
 -- Version de PHP :  7.0.10
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `realagency`
+-- Base de données :  `rental_agency_bdd`
 --
 
 -- --------------------------------------------------------
@@ -29,18 +29,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `agence` (
   `idAgence` int(11) NOT NULL,
   `nomAgence` text NOT NULL,
-  `adresse` text NOT NULL,
   `latitude` float NOT NULL,
-  `longitude` float NOT NULL
+  `longitude` float NOT NULL,
+  `rue` varchar(255) NOT NULL,
+  `numRue` int(11) NOT NULL,
+  `codePostal` varchar(255) NOT NULL,
+  `ville` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Contenu de la table `agence`
 --
 
-INSERT INTO `agence` (`idAgence`, `nomAgence`, `adresse`, `latitude`, `longitude`) VALUES
-(1, 'ChezToi', '5 Rue de l\'Escapade, 31120 Roquettes', 43.4965, 1.38175),
-(2, 'ChezMoi', '71 boulevard de peyramont 31600 Muret', 43.4651, 1.31768);
+INSERT INTO `agence` (`idAgence`, `nomAgence`, `latitude`, `longitude`, `rue`, `numRue`, `codePostal`, `ville`) VALUES
+(1, 'ChezToi', 43.4965, 1.38175, 'rue de l\'escapade', 5, '31120', 'Roquettes'),
+(2, 'ChezMoi', 43.4651, 1.31768, 'Boulevard de Peyramond', 71, '31600', 'Muret');
 
 -- --------------------------------------------------------
 
